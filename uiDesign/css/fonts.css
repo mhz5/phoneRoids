@@ -1,0 +1,19 @@
+@font-face {
+	font-family: 'smart';
+	src: url('fonts/trench.otf');
+}
+
+@font-face {
+    font-family: 'trench';
+    src: url('fonts/trench.otf');
+}
+
+
+#trench {
+    font-family: 'trench';
+}
+
+#big-font {
+	font-size: 120%;
+	color: green !important;
+}

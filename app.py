@@ -67,8 +67,6 @@ class ValidateLogin(restful.Resource):
 
 api.add_resource(ValidateLogin, "/api/login")
 
-
-
 #add venmo auth endpoints 
 api.add_resource(LoginRedirect, '/api/auth/venmo/login')
 api.add_resource(OAuthAuthorized, '/oauth-authorized')
