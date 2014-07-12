@@ -5,7 +5,7 @@ Feature fones on steroids.
 
 
 ##Dependencies 
-===========
+==========
 
 To install mongodb run 
 ```brew install mongodb```
