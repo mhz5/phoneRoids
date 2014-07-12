@@ -15,28 +15,44 @@ YELP_STATE_TWO = "yelp_2"
 
 def processRequest(request, phone_number):
 	texting_user = User.objects(phone_number=str(phone_number)).first()
-	state = texting_user.brain_state.state
-	print texting_user.brain_state.args
-	(app, argDict, state) = parser.parseRequest(request)
+	if texting_user.brain_state is not None:
+		old_state = texting_user.brain_state.state
+		print "Old State: " + old_state
+		argJson = texting_user.brain_state.args
+		if argJson:
+			argReload = json.loads(argJson)
+	else:
+		print "Brain state none"
+		state = "None"
+	
+	(app, argDict, state) = parser.parseRequest(request, old_state)
 	print 'state %s' % state
 	argJson = json.dumps(argDict,  separators=(',',':'))
-	argReload = json.loads(argJson)
-	print argJson
-	print argReload
+	
 	new_brain_state = BrainState(state = state, args = argJson)
 	new_brain_state.save()
-	
+	texting_user.brain_state = new_brain_state
+	texting_user.save()
 	print 'hits after texting'
-	# texting_user.brain_state = new_brain_state
-	# texting_user.save()
+	
 	print argDict
 	print app
-	if app == "venmo":
+	if app == "venmo":	
 		response = venmo_api.make_payment(user = texting_user, phone = argDict.get("to")  , amount = argDict.get("pay"), note = argDict.get("for"))
 	elif app == "maps":
-		response = maps_api.query(startLoc = argDict.get("from"), endLoc = argDict.get("to"))
+		startLoc = argDict.get("from")
+		endLoc = argDict.get("to")
+		if old_state == "yelp_1" and parse.isInteger(endLoc):
+			endLoc = yelp_api.getLocation(location = argReload.get("location"), radius = argReload.get("distance", "50"), category = argReload.get("category", "restaurants"))
+		response = map_api.query(startLoc = startLoc, endLoc = endLoc)
+		
 	elif app == "yelp":
-		response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
+		if old_state == "yelp_1" and argDict.get("choice"):
+			print argReload
+			response = yelp_api.verbose(location = argReload.get("location"), index = argDict.get("choice") , radius = argReload.get("distance", "50"), category = argReload.get("category", "restaurants"))
+		else:
+			response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
+
 	elif app == "error":
 		response = argDict.get("error")
 	print response

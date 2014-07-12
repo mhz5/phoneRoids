@@ -89,8 +89,10 @@ def sampleRequest():
     #query = request.args.get('query')
     #brain.processRequest("maps from: 1572 Hollingsworth Drive, Mountain View CA to: San Francisco", "585-350-9206")
     #brain.processRequest("yelp category:food location: Fairport NY", "585-350-9206")
-    brain.processRequest("venmo pay:0.01 to:3364140402 for: being awesome", "585-350-9206")
-    return redirect("/")
+    brain.processRequest("yelp location: mountain view, CA", "585-350-9206")
+    #brain.processRequest("3", "585-350-9206")
+    #brain.processRequest("basdfasdf", "585-350-9206")
+    return render_template("apps.html")
 
 @app.route("/venmo-payment")
 def make_venmo_request(): 
