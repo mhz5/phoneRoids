@@ -104,6 +104,7 @@ class SetAddress(restful.Resource):
         # return if address label is only whitespace
         if len("".join(label.split())) == 0:
             return redirect('/apps')
+        label = label.lower()
         location = request.form["location"]
         current_user.set_address(label, location)
 

@@ -46,6 +46,7 @@ class User(Document):
 			self.save()
 
 	def get_address_by_label(self, label):
+		label = label.strip().lower()
 		for address in self.addresses:
 			if address.label == label:
 				return address
