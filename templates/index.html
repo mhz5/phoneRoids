@@ -1,3 +1,91 @@
-Hi your number is {{user.phone_number}}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- jQuery -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-<a href="/api/auth/venmo/login">test</a>
+	<link rel="stylesheet" type="text/css" href="static/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="static/css/fonts.css" />
+
+	
+	<script type="text/javascript" src="static/js/script.js"></script>
+	<script type="text/javascript" src="static/js/skel.min.js"></script>
+	<script type="text/javascript" src="static/js/init.js"></script>
+	<script type="text/javascript" src="static/js/jquery.poptrox.min.js"></script>
+</head>
+<body>
+<!-- 	{% if current_user.is_authenticated() %}
+		<h1>HI THERE {{ current_user.password }}</h1>
+	{% else %}
+		<h1>UH OH</h1>
+	{% endif %} -->
+	
+	<a id="login-button" class="button style2">Log In</a>
+	<a id="signup-button" class="button style2">Sign Up</a>
+
+	<div id="login-box" class="box" hidden="">
+		<form method="post" action="/api/login">
+			<fieldset>
+				<div class="form-group">
+					<input class="form-control" placeholder="Phone number" name="phone" type="text">
+				</div>
+				<div class="form-group">
+					<input class="form-control" placeholder="Password" name="password" type="password" value="">
+				</div>
+				<input type="submit" value="Login">
+			</fieldset>
+		</form>
+	</div>
+
+	<div id="signup-box" class="box" hidden="">
+		<form method="post" action="/api/register">
+			<fieldset>
+				<div class="form-group">
+					<input class="form-control" placeholder="Phone number" name="phone" type="text">
+				</div>
+				<div class="form-group">
+					<input class="form-control" placeholder="Password" name="password" type="password">
+				</div>
+				<div class="form-group">
+					<input class="form-control" placeholder="Confirm Password" name="confirm" type="password">
+				</div>
+				<input type="submit" value="Register">
+			</fieldset>
+		</form>
+	</div>
+
+
+	<!-- Background Video -->
+	<video autoplay loop id="vid">
+		<source src="static/vid/textText.mp4" type="video/mp4" />
+	</video>
+
+	<!-- Header -->
+			<section id="header">
+				<header>
+					<h1 id="trench">
+						<span id="big-font">SMS</span><span>mart</span>
+					</h1>
+					<p id="trench">Your phone, our brain</p>
+				</header>
+				<footer>
+					<a href="#banner" class="button style2 scrolly scrolly-centered">Smart</a>
+					<br>
+					<a href="#banner" class="button style2 scrolly scrolly-centered">Smart</a>
+				</footer>
+			</section>
+	
+	<!-- Banner -->
+	<section id="banner">
+		<header>
+			<h2>This is SMSmart</h2>
+		</header>
+
+		<footer>
+				&copy; SMSmart 
+				<br>
+				Design: <a href="http://html5up.net/">HTML5 UP</a>
+		</footer>
+	</section>
+</body>
+</html>
