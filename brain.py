@@ -23,7 +23,7 @@ def processRequest(request, phone_number):
 			argReload = json.loads(argJson)
 	else:
 		print "Brain state: none"
-		state = "None"
+		old_state = "None"
 	
 	print 'after brainstate'
 	(app, argDict, state) = parser.parseRequest(request, old_state)
