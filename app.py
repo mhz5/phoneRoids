@@ -62,8 +62,9 @@ def load_user(userid):
 def index():
     """Respond to incoming calls with a simple text message."""
     body_response = request.values.get('Body')
+    return_message = brain.processRequest(body_response)
     resp = twilio.twiml.Response()
-    resp.message("Hello World")
+    resp.message(return_message)
     return str(resp)
 
 @app.route("/")

@@ -11,7 +11,8 @@ YELP_STATE_TWO = "yelp_2"
 
 
 def processRequest(request):
-	(app, argDict, state) = parser.parseRequest("yelp location: 193 Lakeview Rd., Mocksville, NC 27028 distance: 20 category: food")
+	print request
+	(app, argDict, state) = parser.parseRequest(request)
 	state = YELP_STATE_ONE
 	new_brain_state= BrainState(state=state)
 	new_brain_state.save()
