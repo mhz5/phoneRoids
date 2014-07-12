@@ -16,7 +16,31 @@
 </head>
 
 <body>
+	<h1>Welcome {{ user.phone_number }}</h1>
+	<h1><a href="/logout">Logout</a></h1>
 
+	<!-- Addresses -->
+	<div id="addresses">
+		<div id="address-list">
+			{% for address in user.addresses %}
+			<p> asdf</p>
+			{% endfor %}
+		</div>
+		<div id="new-address">
+			<form method="post" action="/api/address/new">
+				<fieldset>
+					<div class="form-group">
+						<input class="form-control" placeholder="Address" name="location" type="text">
+					</div>
+					<div class="form-group">
+						<input class="form-control" placeholder="Label" name="label" type="text" value="">
+					</div>
+
+					<input class="button" type="submit" value="Save">
+				</fieldset>
+			</form>
+		</div>
+	</div>
 
 	<div id="center-block">
 		<div class="card-row">

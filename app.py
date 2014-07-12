@@ -75,13 +75,15 @@ def index():
 
 @app.route("/")
 def serve_home():
+    if current_user.is_authenticated():
+        return redirect("/apps")
     print 'hitting this'
     return render_template("index.html", user=current_user)
 
 # Testing apps.html
 @app.route("/apps")
 def serve_apps():
-    return render_template("apps.html")
+    return render_template("apps.html", user=current_user)
 
 @app.route("/request")
 def sampleRequest():
@@ -93,6 +95,11 @@ def sampleRequest():
 @app.route("/venmo-payment")
 def make_venmo_request(): 
     make_payment(current_user, 3146087439, 0.01, "hello")
+    return redirect('/')
+
+@app.route("/logout")
+def handle_logout():
+    logout_user()
     return redirect('/')
 
 class RegisterUser(restful.Resource):
@@ -120,8 +127,6 @@ api.add_resource(ValidateLogin, "/api/login")
 #add venmo auth endpoints 
 api.add_resource(LoginRedirect, '/api/auth/venmo/login')
 api.add_resource(OAuthAuthorized, '/oauth-authorized')
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
