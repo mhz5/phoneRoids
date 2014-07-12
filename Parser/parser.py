@@ -5,25 +5,47 @@ yelpArgsStageOne = ['distance:', 'location:', 'category:']
 mapsArgs = []
 venmoArgs = ['pay:', 'request:', 'to:', 'from:', 'for:']
 
-def parseRequest(phrase):
+def parseRequest(phrase, curState = 'None'):
     parseFuncs = {'yelp': parseYelp, 'maps': parseMaps, 'venmo': parseVenmo}
-    requestedApp = findApp(phrase)
-    return (requestedApp, parseFuncs[requestedApp](phrase))
+    newState = 'None'
+    requestedApp = ''
+    response = {}
+    firstToken = getFirstToken(phrase)
+    if firstToken in apps:
+        requestedApp = firstToken
+        response = parseFuncs[requestedApp](phrase)
+        if firstToken == 'yelp':
+            newState = 'yelp_1'
+    else if curState != 'None':
+        #currentApp, currentStage = curState.split('_', 1)
+        requestedApp = 'yelp'
+        if isInteger(phrase):
+            response['choice'] = phrase
+        else if phrase == 'More' or phrase == 'more':
+            response['choice'] = 'more'
+            newState = 'yelp_1'
+        else:
+            response['error'] = 'invalid request format'
+            newState = 'yelp_1'
+    else:
+        response['error'] = 'invalid request format'
+    
+    return (requestedApp, response, newState)
 
 
 def parseYelp(phrase):
-    return parseArgs(phrase, yelpArgsStageOne)
+    return parseArgsStage0(phrase, yelpArgsStageOne)
 
 
 def parseMaps(phrase):
-    return parseArgs(phrase, mapsArgs)
+    return parseArgsStage0(phrase, mapsArgs)
 
 
 def parseVenmo(phrase):
-    return parseArgs(phrase, venmoArgs)
+    return parseArgsStage0(phrase, venmoArgs)
 
 
-def parseArgs(phrase, keywords):
+def parseArgsStage0(phrase, keywords):
     locDict = {}
     keyList = findOrderedKeyList(phrase)
     temp = phrase
@@ -36,6 +58,8 @@ def parseArgs(phrase, keywords):
         if key in phrase:
             locDict[key] = args[pos].strip()
             pos += 1
+        else:
+            locDict[key] = defaults[key]
     return locDict
 
 
@@ -44,20 +68,17 @@ def findOrderedKeyList(phrase):
     return [term.split()[-1] for i, term in enumerate(parts) if i != (len(parts) - 1)]
 
     
-def getColonLoc(phrase):
-    locs = {}
-    while ':' in phrase:
-        loc = phrase.index(':')
-        locs.append(loc)
-        phrase = phrase[(loc+1):]
-    return locs
-    
+def getFirstToken(phrase):
+    return phrase.split(' ', 1)[0]
 
-def findApp(phrase):
-    app = phrase.split(' ', 1)[0]
-    if app in apps:
-        return app
-    return null
+
+def isInteger(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 #print parseRequest('venmo pay:$15.00 to:Mike Zhao for:being AWESOME')
-#print parseRequest('yelp distance:10 miles location:mountain view category:restaurants')
+#print parseRequest('yelp location:mountain view')
+
