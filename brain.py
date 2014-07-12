@@ -13,11 +13,17 @@ YELP_STATE_TWO = "yelp_2"
 def processRequest(request):
 	print request
 	(app, argDict, state) = parser.parseRequest(request)
-	new_brain_state= BrainState(state=state)
+	print 'reaches after parser'
+	new_brain_state = BrainState(state=state)
 	new_brain_state.save()
-	current_user.brain_state=new_brain_state
+	print 'reaches after brain state init'
+	current_user.brain_state = new_brain_state
 	current_user.save()
-	return yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
+	print 'reaches after current user init'
+	query = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
+	print 'right before return'
+	print query
+	return query
 
 
 
