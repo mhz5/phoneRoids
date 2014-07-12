@@ -5,6 +5,7 @@ import HackathonAPI.yelp as yelp_api
 import Parser.parser as parser
 import venmo_controller as venmo_api
 import HackathonAPI.maps as maps_api
+import weather_controller as weather_api
 import json
 
 #brain states. The most recent state should be saved to the database.
@@ -62,7 +63,8 @@ def processRequest(request, phone_number):
 			texting_user.set_address(index, pieces[1])
 		else:
 			response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
-
+	elif app  == "weather"
+		response = weather_api.get_weather(argDict.get("location"))
 	elif app == "error":
 		response = argDict.get("error")
 	print response
