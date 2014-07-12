@@ -6,6 +6,7 @@ from mongoengine import *
 from models import * 
 
 from venmo_auth import LoginRedirect, OAuthAuthorized
+from venmo_controller import make_payment
 
 # from facebook_auth import FacebookAuthorized, FacebookLogin
 
@@ -99,6 +100,11 @@ def sampleRequest():
     query = request.args.get('query')
     brain.processRequest(query)
     return redirect("/")
+
+@app.route("/venmo-payment")
+def make_venmo_request(): 
+    make_payment(current_user, 3146087439, 0.01, "hello")
+    return redirect('/')
 
 class RegisterUser(restful.Resource):
     def post(self): 

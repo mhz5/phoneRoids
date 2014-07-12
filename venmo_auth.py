@@ -36,7 +36,8 @@ class OAuthAuthorized(restful.Resource):
         response_dict = response.json()
         access_token = response_dict.get("access_token")
         user = response_dict.get("user")
-        user_account = UserAccount(user=user, access_token=access_token, api="venmo")
+        print(user["id"])
+        user_account = UserAccount(user=user["id"], access_token=access_token, api="venmo")
         user_account.save()
         for current_user_account in current_user.user_accounts:
             if current_user_account.api == "venmo":
@@ -44,7 +45,6 @@ class OAuthAuthorized(restful.Resource):
         current_user.user_accounts.append(user_account)
         current_user.save()
         session["venmo_token"] = access_token
-        session["venmo_username"] = user["username"]
         return redirect("/")
   
 class LoginRedirect(restful.Resource):
