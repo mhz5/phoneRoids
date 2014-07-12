@@ -48,10 +48,10 @@ def processRequest(request, phone_number):
 		storedStartLoc = texting_user.get_address_by_label(startLoc)
 		storedEndLoc = texting_user.get_address_by_label(endLoc)
 		if storedEndLoc:
-			endLoc = storedEndLoc
+			endLoc = storedEndLoc.location
 		if storedStartLoc:
-			startLoc = storedStartLoc
-		print "Query: from: "+ startLoc + "to: "+ endLoc
+			startLoc = storedStartLoc.location
+		#print "Query: from: "+ startLoc + "to: "+ endLoc
 		response = maps_api.query(startLoc = startLoc, endLoc = endLoc)
 		
 	elif app == "yelp":
@@ -63,7 +63,7 @@ def processRequest(request, phone_number):
 			texting_user.set_address(index, pieces[1])
 		else:
 			response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
-	elif app  == "weather"
+	elif app  == "weather":
 		response = weather_api.get_weather(argDict.get("location"))
 	elif app == "error":
 		response = argDict.get("error")
