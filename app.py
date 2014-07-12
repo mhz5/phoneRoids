@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, render_template, redirect
+from flask import Flask, request, url_for, render_template, redirect, g
 from flask.ext.login import LoginManager, current_user, login_user, logout_user 
 from flask.ext import restful
  
@@ -45,6 +45,11 @@ def serve_register():
 def serve_login(): 
 	return render_template("login.html")
 
+@app.route("/logout")
+def serve_logout(): 
+    logout_user()
+    return render_template("login.html")
+
 class RegisterUser(restful.Resource):
     def post(self): 
         if User.objects(phone_number=request.form["phone"]): #checks if username is taken
@@ -59,6 +64,7 @@ api.add_resource(RegisterUser, "/api/register")
 class ValidateLogin(restful.Resource):
     def post(self):
         user= User.objects(phone_number=request.form["phone"], password=request.form["password"])
+        g.user = current_user
         if user:
             login_user(user.first(), remember=True)
             return redirect("/")
