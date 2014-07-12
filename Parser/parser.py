@@ -22,7 +22,7 @@ def parseRequest(phrase, curState = 'None'):
         #currentApp, currentStage = curState.split('_', 1)
         requestedApp = 'yelp'
         if isInteger(phrase):
-            response['choice'] = phrase
+            response['choice'] = phrase+""
         elif phrase == 'More' or phrase == 'more':
             response['choice'] = 'more'
             newState = 'yelp_1'
