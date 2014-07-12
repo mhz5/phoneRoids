@@ -58,6 +58,7 @@ def sampleRequest():
     # here we want to get the value of user (i.e. ?query=some-value)
     query = request.args.get('query')
     brain.processRequest(query)
+    return redirect("/")
 
 class RegisterUser(restful.Resource):
     def post(self): 
