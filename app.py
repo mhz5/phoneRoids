@@ -103,7 +103,7 @@ def serve_logout():
 def sampleRequest():
     # here we want to get the value of user (i.e. ?query=some-value)
     #query = request.args.get('query')
-    brain.processRequest("yelp location:1572 Hollingsworth Drive distance:20 category:food")
+    brain.processRequest("maps from: 1572 Hollingsworth Drive, Mountain View CA to: San Francisco", "585-350-9206")
     return redirect("/")
 
 @app.route("/venmo-payment")
