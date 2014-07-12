@@ -150,7 +150,7 @@ def buildResponse(response, counter, location, verbose):
     if 'categories' in response:
         name +=  ' (' + response['categories'][0][0]+ ')' 
     if 'location' in response:
-        endLocation = response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
+        endLocation = response['location']['address'][0] + ', ' + response['location']['city'] + ', ' + response['location']['state_code'] + ' ' + response['location']['postal_code']
     else:
         endLocation = 'location unavailable'
     if 'phone' in response:
