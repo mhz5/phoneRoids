@@ -8,7 +8,7 @@ weatherArgs = ['location:']
 
 def parseRequest(phrase, curState = 'None'):
     phrase = phrase.lower()
-    parseFuncs = {'yelp': parseYelp, 'maps': parseMaps, 'venmo': parseVenmo}
+    parseFuncs = {'yelp': parseYelp, 'maps': parseMaps, 'venmo': parseVenmo, "weather": parseWeather}
     newState = 'None'
     requestedApp = ''
     response = {}
