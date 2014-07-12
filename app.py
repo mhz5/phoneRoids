@@ -70,8 +70,7 @@ def index():
     print ('request%s' % body_response)
     return_message = brain.processRequest(body_response, phone_number)
     resp = twilio.twiml.Response()
-    with resp.message(return_message) as m:
-        m.media('http://icons.wxug.com/i/c/k/partlycloudy.gif')
+    resp.message(return_message) 
     return str(resp)
 
 @app.route("/")
