@@ -15,7 +15,6 @@ def processRequest(request, phone_number):
 	print 'state %s' % state
 	new_brain_state = BrainState(state=state)
 	new_brain_state.save()
-	texting_user = User.objects(phone_number=str(phone_number)).first()
 	print 'hits after texting'
 	# texting_user.brain_state = new_brain_state
 	# texting_user.save()
