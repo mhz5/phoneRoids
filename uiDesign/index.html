@@ -7,12 +7,17 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/fonts.css" />
 
+	
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/skel.min.js"></script>
 	<script type="text/javascript" src="js/init.js"></script>
 	<script type="text/javascript" src="js/jquery.poptrox.min.js"></script>
 </head>
 <body>
+	<!-- Test Venmo -->
+	<p>Hi your number is {{user.phone_number}}</p>
+	<a href="/api/auth/venmo/login">Venmo Authentication</a>
+
 	<!-- Background Video -->
 	<video autoplay loop id="vid">
 		<source src="vid/textText.mp4" type="video/mp4" />
@@ -27,6 +32,8 @@
 					<p id="moiser">Your phone, our brain</p>
 				</header>
 				<footer>
+					<a href="#banner" class="button style2 scrolly scrolly-centered">Smart</a>
+					<br>
 					<a href="#banner" class="button style2 scrolly scrolly-centered">Smart</a>
 				</footer>
 			</section>

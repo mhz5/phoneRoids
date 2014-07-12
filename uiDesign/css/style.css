@@ -2,6 +2,7 @@
 
 @font-face{font-family:'FontAwesome';src:url('font/fontawesome-webfont.eot?v=4.0.1');src:url('font/fontawesome-webfont.eot?#iefix&v=4.0.1') format('embedded-opentype'),url('font/fontawesome-webfont.woff?v=4.0.1') format('woff'),url('font/fontawesome-webfont.ttf?v=4.0.1') format('truetype'),url('font/fontawesome-webfont.svg?v=4.0.1#fontawesomeregular') format('svg');font-weight:normal;font-style:normal}
 
+/* OWN */
 
 video#vid {
 	position: fixed; right: 0; bottom: 0;
@@ -9,6 +10,50 @@ video#vid {
 	width: auto; height: auto; z-index: -100;
 	background-size: cover;
 }
+
+#center-block {
+	margin-top: 10%;
+	text-align: center;
+}
+
+.grayscale {
+    filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+}
+/*
+.grayscale:hover {
+	width: 276px;
+}*/
+
+.row {
+	margin-bottom: 50px;
+}
+
+.shadow {
+	position: absolute;
+	left: 110px;
+	top: 20px;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+/* End OWN */
+
+
+/**/
+/**/
+/**/
+/**/
+/**/
+
 
 
 /*
@@ -30,7 +75,7 @@ video#vid {
 
 	body
 	{
-		background: #183026 url('../images/bg.jpg') no-repeat;
+		background: #183026 url('../images/fulls/05.jpg') no-repeat;
 		background-size: cover;
 		background-position: center 0;
 		background-attachment: fixed;
@@ -170,8 +215,9 @@ video#vid {
 			text-shadow: 0 0 0.5px rgba(255,255,255,0.25);
 			cursor: pointer;
 			text-decoration: none;
+			margin-bottom: 10px;
 			outline: 0;
-			padding: 1em 1em 1em 1em;
+			padding: .5em 1em .5em 1em;
 			
 			border-radius: 3em;
 			font-weight: 400;
