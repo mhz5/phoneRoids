@@ -1,11 +1,9 @@
 ##Relay
-==========
 
-Feature fones on steroids.
+Making dumb phones smart
 
 
 ##Dependencies 
-==========
 
 To install mongodb run 
 ```brew install mongodb```
