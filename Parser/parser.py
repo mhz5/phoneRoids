@@ -1,11 +1,30 @@
-import re;
+import re
 
-apps = ["yelp", "maps"]
+apps = ["yelp", "maps", "venmo"]
 yelpArgsStageOne = ["distance:", "location:", "category:"]
 
+def parseRequest(phrase):
+    parseFuncs = {"yelp": parseYelp, "maps": parseMaps, "venmo": parseVenmo}
+    requestedApp = findApp(phrase)
+    return (requestedApp, parseFuncs[requestedApp](phrase))
+
+
 def parseYelp(phrase):
-    return
-    
+    return parseYelpStateOne(phrase)
+
+
+def parseMaps(phrase):
+    print 'maps'
+
+
+def parseVenmo(phrase):
+    m = re.search('venmo (pay $[0-9][0-9]?[0-9]?.[0-9][0-9] to \w+ \w+ for .*|request $[0-9][0-9]?[0-9]?.[0-9][0-9] from \w+ \w+ for .*)', phrase)
+    if m:
+        return {'request type': m.group(0), 'entity': person, 'amount': m.group(1)}
+    else:
+        return 'parsing error. please try again'
+
+
 def parseYelpStateOne(phrase):
     locDict = {}
     temp = phrase
@@ -17,9 +36,9 @@ def parseYelpStateOne(phrase):
     pos = 0
     for key in yelpArgsStageOne:
         if key in phrase:
-            locDict[key] = args[pos]
-            pos+=1
-    print locDict
+            locDict[key[:-1]] = args[pos].strip()
+            pos += 1
+    return locDict
     
     
 def getColonLoc(phrase):
@@ -27,14 +46,14 @@ def getColonLoc(phrase):
     while ":" in phrase:
         loc = phrase.index(":")
         locs.append(loc)
-        phrase =  phrase[(loc+1):]
-        print phrase
+        phrase = phrase[(loc+1):]
+        #print phrase
     return locs
     
 
 def findApp(phrase):
     app = phrase.split(' ', 1)[0]
     if app in apps:
-        print app
+        return app
 
-parseYelpStateOne("location: Mountain View distance: 10 category: restaurants")
+#print parseRequest("venmo pay $15.00 to Michael Zhao for being AWESOME")
