@@ -6,4 +6,12 @@ $(document).ready(function() {
 			$(this).addClass('grayscale');
 
 	});
+
+	$('[data-toggle=offcanvas]').click(function() {
+		$('.row-offcanvas').toggleClass('active');
+
+		
+
+	});
 });
+

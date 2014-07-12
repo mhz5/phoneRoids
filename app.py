@@ -114,8 +114,7 @@ api.add_resource(SetAddress,'/api/address')
 def handle_logout():
     logout_user()
     return redirect('/')
-
-
+    
 class RegisterUser(restful.Resource):
     def post(self): 
         if User.objects(phone_number=request.form["phone"]): #checks if username is taken
