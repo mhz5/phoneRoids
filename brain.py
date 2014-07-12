@@ -12,7 +12,7 @@ YELP_STATE_TWO = "yelp_2"
 
 def processRequest(request):
 	print request
-	(app, argDict, state) = parser.parseRequest(request)
+	(app, argDict) = parser.parseRequest(request)
 	state = YELP_STATE_ONE
 	new_brain_state= BrainState(state=state)
 	new_brain_state.save()
