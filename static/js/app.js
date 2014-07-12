@@ -4,6 +4,6 @@ $(document).ready(function() {
 			$(this).removeClass('grayscale');
 		else
 			$(this).addClass('grayscale');
-		alert('activated');
+
 	});
 });

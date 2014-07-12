@@ -37,8 +37,33 @@ video#vid {
 	text-align: center;
 }
 
+/* Login and Signup Boxes */
 
+div.auth-box {
+	margin-left: auto;
+	margin-right: auto;
+	position: fixed !important;
+	margin-top: 10%;
+	width: 200px;
+}
 
+#auth-buttons {
+
+}
+
+#login-button {
+	margin-right: 2em;
+	margin-left: 1em;
+}
+
+/* Learn More*/
+
+#learn-more {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 400px;
+	width: 150px;
+}
 
 
 
@@ -79,11 +104,11 @@ video#vid {
 		background-size: cover;
 		background-position: center 0;
 		background-attachment: fixed;
+		font-family: 'trench' !important;
 	}
 
 	body,input,textarea,select
 	{
-		font-family: 'Source Sans Pro', sans-serif;
 		font-size: 18pt;
 		line-height: 1.75em;
 		font-weight: 300;
@@ -267,21 +292,25 @@ video#vid {
 /*********************************************************************************/
 /* Header                                                                        */
 /*********************************************************************************/
+	section#header {
+		padding: 0;
+	}
 
 	#header
 	{
 		position: relative;
 		color: #fff;
+		font-size: 1.8em;
 		text-shadow: 0 0 0.5px rgba(255,255,255,0.25);
 		margin-left: 5%;
-		padding: 14em 0 14em 0;
-		cursor: default;
+/*		padding: 14em 0 14em 0;
+*/		cursor: default;
 	}
 	
 		#header header
 		{
 			display: inline-block;
-			padding: 0 0 4.5em 0;
+			/*padding: 0 0 4.5em 0;*/
 		}
 		
 			#header header h1
