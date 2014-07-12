@@ -90,6 +90,18 @@ def make_venmo_request():
     make_payment(current_user, 3146087439, 0.01, "hello")
     return redirect('/')
 
+class SetAddress(resful.Resource):
+    label = request.form["label"]
+    # return if address label is only whitespace
+    if len("".join(label.split())) == 0:
+        return redirect('/apps')
+    location = request.form["location"]
+    current_user.set_address(label, location)
+    return redirect('/apps')
+
+api.add_resouce(SetAddress,'/api/address')
+
+
 class RegisterUser(restful.Resource):
     def post(self): 
         if User.objects(phone_number=request.form["phone"]): #checks if username is taken
