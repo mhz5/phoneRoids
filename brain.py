@@ -17,7 +17,7 @@ def processRequest(request):
 	new_brain_state.save()
 	current_user.brain_state=new_brain_state
 	current_user.save()
-	print yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
+	return yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
 
 
 
