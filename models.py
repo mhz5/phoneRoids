@@ -7,6 +7,7 @@ class BrainState(Document):
 class Address(Document):
 	label = StringField(required=True, unique=True)
 	location = StringField()
+	user_set = BooleanField(default=True)
 
 class UserAccount(Document):
 	api = StringField(required=True)

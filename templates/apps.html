@@ -29,6 +29,7 @@
 					<div id="addresses">
 						<div id="address-list">
 							{% for address in user.addresses %}
+							<p> {{ address.label }} </p>
 							<p> {{ address.location }}</p>
 							{% endfor %}
 						</div>
