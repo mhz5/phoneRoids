@@ -2,6 +2,7 @@ from mongoengine import *
 
 class BrainState(Document):
 	state = StringField()
+	args = StringField()
 
 class Address(Document):
 	label = StringField(required=True, unique=True)

@@ -5,6 +5,7 @@ import HackathonAPI.yelp as yelp_api
 import Parser.parser as parser
 import venmo_controller as venmo_api
 import HackathonAPI.maps as maps_api
+import json
 
 #brain states. The most recent state should be saved to the database.
 NULL_STATE = "null_state"
@@ -14,10 +15,15 @@ YELP_STATE_TWO = "yelp_2"
 
 def processRequest(request, phone_number):
 	texting_user = User.objects(phone_number=str(phone_number)).first()
-	state = texting_user.brain_state
+	state = texting_user.brain_state.state
+	print texting_user.brain_state.args
 	(app, argDict, state) = parser.parseRequest(request)
 	print 'state %s' % state
-	new_brain_state = BrainState(state=state)
+	argJson = json.dumps(argDict,  separators=(',',':'))
+	argReload = json.loads(argJson)
+	print argJson
+	print argReload
+	new_brain_state = BrainState(state = state, args = argJson)
 	new_brain_state.save()
 	
 	print 'hits after texting'
@@ -33,7 +39,7 @@ def processRequest(request, phone_number):
 		response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
 	elif app == "error":
 		response = argDict.get("error")
-
+	print response
 	return response
 
 

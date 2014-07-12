@@ -99,11 +99,14 @@ def serve_logout():
     logout_user()
     return render_template("login.html")
 
+
 @app.route("/request")
 def sampleRequest():
     # here we want to get the value of user (i.e. ?query=some-value)
     #query = request.args.get('query')
-    brain.processRequest("maps from: 1572 Hollingsworth Drive, Mountain View CA to: San Francisco", "585-350-9206")
+    #brain.processRequest("maps from: 1572 Hollingsworth Drive, Mountain View CA to: San Francisco", "585-350-9206")
+    #brain.processRequest("yelp category:food location: Fairport NY", "585-350-9206")
+    brain.processRequest("venmo pay:0.01 to:3364140402 for: being awesome", "585-350-9206")
     return redirect("/")
 
 @app.route("/venmo-payment")
