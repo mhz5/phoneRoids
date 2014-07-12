@@ -14,7 +14,7 @@ Then create the data directory
 ```mkdir -p /data/db```
 
 Then run the command 
-```mongod```
+``` mongod ```
 
 To install other requirements, run 
 ```pip install -r requirements.txt```
