@@ -14,15 +14,9 @@ def processRequest(request, phone_number):
 	(app, argDict, state) = parser.parseRequest(request)
 	new_brain_state = BrainState(state=state)
 	new_brain_state.save()
-	print ('brain state')
-	print (str(phone_number))
 	texting_user = User.objects(phone_number=str(phone_number)).first()
-	print ('texting user')
-	print texting_user
-	texting_user.brain_state = new_brain_state
-	print 'hits here'
-	texting_user.save()
-	print 'hit another'
+	# texting_user.brain_state = new_brain_state
+	# texting_user.save()
 	query = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
 	return query
 
