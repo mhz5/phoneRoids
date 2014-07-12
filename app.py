@@ -56,7 +56,7 @@ else:
 def load_user(userid):
     return User.objects(id=userid).first()
  
-@app.route("/api/v1/text", methods=["GET", "POST"])
+@app.route("/api/text", methods=["GET", "POST"])
 def index():
     """Respond to incoming calls with a simple text message."""
     resp = twilio.twiml.Response()
