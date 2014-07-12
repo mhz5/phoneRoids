@@ -63,7 +63,12 @@ def load_user(userid):
 def index():
     """Respond to incoming calls with a simple text message."""
     body_response = request.values.get('Body')
-    return_message = brain.processRequest(body_response)
+    phone_number = request.values.get('From')[2:]
+    if not User.objects(phone_number=str(phone_number)):
+        print 'hits here'
+        return 
+    print ('request%s' % body_response)
+    return_message = brain.processRequest(body_response, phone_number)
     resp = twilio.twiml.Response()
     resp.message(return_message)
     return str(resp)
