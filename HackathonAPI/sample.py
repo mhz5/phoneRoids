@@ -149,11 +149,20 @@ def buildResponse(response, counter, location, verbose):
     name = response['name']
     if 'categories' in response:
         name +=  ' (' + response['categories'][0][0]+ ')' 
-    endLocation = response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
-    phone = formatPhone(str(response['phone'])) 
-    rating = str(response['rating']) + " stars" 
+    if 'location' in response:
+        endLocation = response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
+    else:
+        endLocation = 'location unavailable'
+    if 'phone' in response:
+        phone = formatPhone(str(response['phone'])) 
+    else:
+        phone = 'phone unavailabe'
+    if 'rating' in response:
+        rating = str(response['rating']) + " stars" 
+    else:
+        rating = 'rating unavailable'
     distance = getDistance(location, endLocation)
-    status = 'closed' if (str(response['is_closed']) == 'False') else 'open'
+    status = 'open' if (str(response['is_closed']) == 'False') else 'closed'
     isClosed = 'currently ' + status 
     #neighborhood = response['location']['neighborhoods'][0]
     if (not verbose):
@@ -168,6 +177,7 @@ def getLocations(businesses, location, verbose, index):
         business = businesses[int(index) - 1]
         bizId = business['id']
         response = get_business(bizId)
+        #pprint.pprint(response, indent=2)
         output += buildResponse(response, counter, location, verbose)
     else:
         for business in businesses:
