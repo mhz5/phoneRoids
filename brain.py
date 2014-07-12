@@ -31,7 +31,7 @@ def processRequest(request, phone_number):
 		response = maps_api.query(startLoc = argDict.get("from"), endLoc = argDict.get("to"))
 	elif app == "yelp":
 		response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
-	elif app == "error"
+	elif app == "error":
 		response = argDict.get("error")
 
 	return response
