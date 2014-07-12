@@ -16,5 +16,12 @@
 
 #big-font {
 	font-size: 120%;
-	color: green !important;
+	color: #35b88f;
+	text-shadow: 2px 2px #95ebbf;
+}
+
+#small-font {
+	color: #ddd;
+	text-shadow: 2px 2px #aaa;
+;
 }
