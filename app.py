@@ -63,7 +63,7 @@ def load_user(userid):
 def index():
     """Respond to incoming calls with a simple text message."""
     body_response = request.values.get('Body')
-    phone_number = request.values.get('From')[1:]
+    phone_number = request.values.get('From')[2:]
     print ('phone')
     print (phone_number)
     if not User.objects(phone_number=phone_number):
