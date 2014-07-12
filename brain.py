@@ -27,6 +27,7 @@ def processRequest(request, phone_number):
 		print "Brain state: none"
 		old_state = "None"
 	
+	print 'after brainstate'
 	(app, argDict, state) = parser.parseRequest(request, old_state)
 	print 'state %s' % state
 	argJson = json.dumps(argDict,  separators=(',',':'))

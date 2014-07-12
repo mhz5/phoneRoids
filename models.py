@@ -7,6 +7,7 @@ class BrainState(Document):
 class Address(Document):
 	label = StringField(required=True, unique=True)
 	location = StringField()
+	user_set = BooleanField(default=True)
 
 class UserAccount(Document):
 	api = StringField(required=True)
@@ -47,6 +48,7 @@ class User(Document):
 			self.save()
 
 	def get_address_by_label(self, label):
+		label = label.strip().lower()
 		for address in self.addresses:
 			if address.label == label:
 				return address

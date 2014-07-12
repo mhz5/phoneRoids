@@ -63,9 +63,7 @@ def load_user(userid):
 def index():
     """Respond to incoming calls with a simple text message."""
     body_response = request.values.get('Body')
-    phone_number = request.values.get('From')[2:]
-    print body_response
-    print phone_number
+    phone_number = request.values.get('From')[2:]   
     if not User.objects(phone_number=str(phone_number)):
         print 'hits here'
         return 
@@ -109,6 +107,7 @@ class SetAddress(restful.Resource):
         # return if address label is only whitespace
         if len("".join(label.split())) == 0:
             return redirect('/apps')
+        label = label.lower()
         location = request.form["location"]
         current_user.set_address(label, location)
 
