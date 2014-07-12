@@ -21,7 +21,7 @@ class User(Document):
 	addresses = ListField(ReferenceField(Address))
 	queries = ListField(ReferenceField(Query))
 	user_accounts = ListField(ReferenceField(UserAccount))
-	brain_state = ListField(ReferenceField(BrainState))
+	brain_state = ReferenceField(BrainState)
 
 	def is_authenticated(self):
 		return True
