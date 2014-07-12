@@ -6,8 +6,9 @@ import re
 direct = Directions()
 
 TAG_RE = re.compile(r'<[^>]+>')
-startLoc = '4790 Canberra Court, San Jose, CA'
+startLoc = '2121 S. El Camino Real, San Mateo CA'
 endLoc = '820 E El Camino Real, Mountain View, CA'
+DEFAULT = 'Hollingsworth Drive, Mountain View CA'
 token = '\n'
 
 def remove_tags(text):
@@ -18,10 +19,27 @@ def getDirections(start, end):
 	response = direct.directions(start, end)
 	#pprint.pprint(response, indent=2)
 	return response
+    
+# 1 for City, 0 for State 
+def getLocation(start, typeLoc):
+    response = getDirections(start, DEFAULT)
+    address = response[0]['legs'][0]['start_address']
+    tokens = address.split(', ')
+    if typeLoc == 1:
+    	return tokens[len(tokens) - 3]
+    else:
+    	return tokens[len(tokens) - 2][:2]
+
+def getState(start):
+	print getLocation(start, 0)
+
+def getCity(start):
+	print getLocation(start, 1)
 
 def getDistance(start, end):
-	response = getDirections(start, end)
-	return str(response[0]['legs'][0]['distance']['text'])
+    response = getDirections(start, end)
+    pprint.pprint(response)
+    return str(response[0]['legs'][0]['distance']['text'])
 
 def query(startLoc, endLoc):
 	print "Maps got query"
@@ -43,5 +61,14 @@ def query(startLoc, endLoc):
 	print '---- Output -----'
 	print output
 	print '-----------------'
+
+getState(' San Jose, CA')
+getState(' 4790 Canberra Court, San Jose, CA 95124')
+getState(' 4790 Canberra Court  , San Jose 95124')
+getCity(' San Jose, CA')
+getCity(' 4790 Canberra Court, San Jose, CA 95124')
+getCity(' 4790 Canberra Court  , San Jose 95124')
+
+
 
 #main(startLoc, endLoc)
