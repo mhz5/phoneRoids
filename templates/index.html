@@ -20,10 +20,8 @@
 		<h1>UH OH</h1>
 	{% endif %} -->
 	
-	<a id="login-button" class="button style2">Log In</a>
-	<a id="signup-button" class="button style2">Sign Up</a>
 
-	<div id="login-box" class="box" hidden="">
+	<div id="login-box" class="auth-box" hidden="">
 		<form method="post" action="/api/login">
 			<fieldset>
 				<div class="form-group">
@@ -37,7 +35,7 @@
 		</form>
 	</div>
 
-	<div id="signup-box" class="box" hidden="">
+	<div id="signup-box" class="auth-box" hidden="">
 		<form method="post" action="/api/register">
 			<fieldset>
 				<div class="form-group">
@@ -61,20 +59,24 @@
 	</video>
 
 	<!-- Header -->
-			<section id="header">
-				<header>
-					<h1 id="trench">
-						<span id="big-font">SMS</span><span>mart</span>
-					</h1>
-					<p id="trench">Your phone, our brain</p>
-				</header>
-				<footer>
-					<a href="#banner" class="button style2 scrolly scrolly-centered">Smart</a>
-					<br>
-					<a href="#banner" class="button style2 scrolly scrolly-centered">Smart</a>
-				</footer>
-			</section>
+	<section id="header">
+		<header>
+			<h1 id="trench">
+				<span id="big-font">SMS</span><span>mart</span>
+			</h1>
+			<p id="trench">Your phone, our brain</p>
+			<div id="auth-buttons">
+				<br>
+				<a id="login-button" class="button style2">Log In</a>
+				<a id="signup-button" class="button style2">Sign Up</a>
+			</div>
+		</header>
+	</section>
 	
+	<div id="learn-more">
+		<a href="#banner" class="button style2 scrolly scrolly-centered">Learn More</a>
+	</div>
+
 	<!-- Banner -->
 	<section id="banner">
 		<header>

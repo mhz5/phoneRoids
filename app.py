@@ -116,7 +116,7 @@ class ValidateLogin(restful.Resource):
         user= User.objects(phone_number=request.form["phone"], password=request.form["password"])
         if user:
             login_user(user.first(), remember=True)
-            return redirect("/")
+            return redirect("/apps")
         error=json.dumps({"error": "Phone and password combination is not correct."})
         return redirect(url_for("serve_home", error=error))
 

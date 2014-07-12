@@ -39,12 +39,29 @@ video#vid {
 
 /* Login and Signup Boxes */
 
-.box {
+.auth-box {
 	text-align: center;
 	display: fixed;
 	margin-top: 20%;
 }
 
+#auth-buttons {
+
+}
+
+#login-button {
+	margin-right: 2em;
+	margin-left: 1em;
+}
+
+/* Learn More*/
+
+#learn-more {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 400px;
+	width: 150px;
+}
 
 
 
@@ -273,21 +290,25 @@ video#vid {
 /*********************************************************************************/
 /* Header                                                                        */
 /*********************************************************************************/
+	section#header {
+		padding: 0;
+	}
 
 	#header
 	{
 		position: relative;
 		color: #fff;
+		font-size: 1.8em;
 		text-shadow: 0 0 0.5px rgba(255,255,255,0.25);
 		margin-left: 5%;
-		padding: 14em 0 14em 0;
-		cursor: default;
+/*		padding: 14em 0 14em 0;
+*/		cursor: default;
 	}
 	
 		#header header
 		{
 			display: inline-block;
-			padding: 0 0 4.5em 0;
+			/*padding: 0 0 4.5em 0;*/
 		}
 		
 			#header header h1
