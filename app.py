@@ -12,13 +12,43 @@ from venmo_auth import LoginRedirect, OAuthAuthorized
 import twilio.twiml
 import json 		
 
-connect("relay")
  
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 app.secret_key= "1234123512341"
 api = restful.Api(app)
+
+#for heroku
+if 'PORT' in os.environ: 
+    import re
+    from mongoengine import connect
+
+    regex = re.compile(r'^mongodb\:\/\/(?P<username>[_\w]+):(?P<password>[\w]+)@(?P<host>[\.\w]+):(?P<port>\d+)/(?P<database>[_\w]+)$')
+
+    # grab the MONGOLAB_URI
+    mongolab_url = os.environ['MONGOLAB_URI']
+
+    # get our match
+    match = regex.search(mongolab_url)
+    data = match.groupdict()
+
+    # now connect
+    connect(data['database'], host=data['host'], port=int(data['port']), username=data['username'], password=data['password'])
+
+else:
+    # not heroku (dev env)
+    # connect to mongo
+    connect('relay')
+
+    # log to stderr
+    import logging
+    from logging import StreamHandler
+    file_handler = StreamHandler()
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.WARNING)
+    log.addHandler(file_handler)
+    app.logger.addHandler(file_handler)
 
 @login_manager.user_loader
 def load_user(userid):
