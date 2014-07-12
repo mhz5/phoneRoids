@@ -1,11 +1,12 @@
 import re
 
-apps = ["yelp", "maps", "venmo"]
-yelpArgsStageOne = ["distance:", "location:", "category:"]
-venmoArgs = ["pay:", "request", "to:", "from:", "for:"]
+apps = ['yelp', 'maps', 'venmo']
+yelpArgsStageOne = ['distance:', 'location:', 'category:']
+mapsArgs = []
+venmoArgs = ['pay:', 'request:', 'to:', 'from:', 'for:']
 
 def parseRequest(phrase):
-    parseFuncs = {"yelp": parseYelp, "maps": parseMaps, "venmo": parseVenmo}
+    parseFuncs = {'yelp': parseYelp, 'maps': parseMaps, 'venmo': parseVenmo}
     requestedApp = findApp(phrase)
     return (requestedApp, parseFuncs[requestedApp](phrase))
 
@@ -15,7 +16,7 @@ def parseYelp(phrase):
 
 
 def parseMaps(phrase):
-    print 'maps'
+    return parseArgs(phrase, mapsArgs)
 
 
 def parseVenmo(phrase):
@@ -24,27 +25,31 @@ def parseVenmo(phrase):
 
 def parseArgs(phrase, keywords):
     locDict = {}
+    keyList = findOrderedKeyList(phrase)
     temp = phrase
     for key in keywords:
         if key in temp:
-            temp = temp.replace(key,":")
-            #locDict[key] = phraseLoc
-    args = temp.split(":")
+            temp = temp.replace(key,':')
+    args = temp.split(':')
     pos = 1
-    for key in keywords:
+    for key in keyList:
         if key in phrase:
-            locDict[key[:-1]] = args[pos].strip()
+            locDict[key] = args[pos].strip()
             pos += 1
     return locDict
-    
+
+
+def findOrderedKeyList(phrase):
+    parts = phrase.split(':')
+    return [term.split()[-1] for i, term in enumerate(parts) if i != (len(parts) - 1)]
+
     
 def getColonLoc(phrase):
     locs = {}
-    while ":" in phrase:
-        loc = phrase.index(":")
+    while ':' in phrase:
+        loc = phrase.index(':')
         locs.append(loc)
         phrase = phrase[(loc+1):]
-        #print phrase
     return locs
     
 
@@ -53,5 +58,5 @@ def findApp(phrase):
     if app in apps:
         return app
 
-#print parseRequest("venmo pay:$15.00 to:Mike Zhao for:being AWESOME")
-#print parseRequest("yelp distance:10 miles location:mountain view category:restaurants")
+#print parseRequest('venmo pay:$15.00 to:Mike Zhao for:being AWESOME')
+#print parseRequest('yelp distance:10 miles location:mountain view category:restaurants')
