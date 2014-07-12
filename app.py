@@ -64,6 +64,8 @@ def index():
     """Respond to incoming calls with a simple text message."""
     body_response = request.values.get('Body')
     phone_number = request.values.get('From')[1:]
+    print ('phone')
+    print (phone_number)
     if not User.objects(phone_number=phone_number):
         return 
     return_message = brain.processRequest(body_response, phone_number)
