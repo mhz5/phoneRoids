@@ -95,7 +95,7 @@ def sampleRequest():
     #brain.processRequest("yelp location: mountain view, CA", "585-350-9206")
     #brain.processRequest("3", "585-350-9206")
     #brain.processRequest("basdfasdf", "585-350-9206")
-    brain.processRequest("maps from: mountain view, CA to: 3", "585-350-9206")
+    brain.processRequest("maps from: mountain view, CA to: San Francisco", "585-350-9206")
     return render_template("apps.html", user=current_user)
 
 @app.route("/venmo-payment")

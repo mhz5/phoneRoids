@@ -50,7 +50,7 @@ def processRequest(request, phone_number):
 		if storedStartLoc:
 			startLoc = storedStartLoc
 		print "Querty: from: "+ startLoc + "to: "+ endLoc
-		response = map_api.query(startLoc = startLoc, endLoc = endLoc)
+		response = maps_api.query(startLoc = startLoc, endLoc = endLoc)
 		
 	elif app == "yelp":
 		if old_state == "yelp_1" and argDict.get("choice"):
