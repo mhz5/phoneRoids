@@ -1,6 +1,6 @@
 import sample
 
-def main(location, radius, category='restaurant'):
+def query(location, radius, category='restaurant'):
     print 'Arguments: ' + category + " | " + location
     return sample.query_api(category, location, radius, False, 1)
 

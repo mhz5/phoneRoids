@@ -43,4 +43,4 @@ def main(startLoc, endLoc):
 	print output
 	print '-----------------'
 
-main(startLoc, endLoc)
+#main(startLoc, endLoc)
