@@ -59,6 +59,7 @@ def load_user(userid):
 @app.route("/api/text", methods=["GET", "POST"])
 def index():
     """Respond to incoming calls with a simple text message."""
+    print request.values
     resp = twilio.twiml.Response()
     resp.message("Hello World")
     return str(resp)
