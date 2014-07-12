@@ -75,29 +75,13 @@ def index():
 
 @app.route("/")
 def serve_home():
-    if not current_user.is_authenticated():
-        return render_template("login.html")
-    else:
-    	print current_user.user_accounts
-        return render_template("index.html", user=current_user)
+    print 'hitting this'
+    return render_template("index.html", user=current_user)
 
 # Testing apps.html
 @app.route("/apps")
 def serve_apps():
     return render_template("apps.html")
-
-@app.route("/register")
-def serve_register(): 
-	return render_template("register.html")
-
-@app.route("/login")
-def serve_login(): 
-	return render_template("login.html")
-
-@app.route("/logout")
-def serve_logout(): 
-    logout_user()
-    return render_template("login.html")
 
 @app.route("/request")
 def sampleRequest():
