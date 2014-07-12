@@ -142,9 +142,13 @@ def formatPhone(phone):
 def getDistance(start, end):
     return maps.getDistance(start, end)
 
+#Todo: make robust to missing fields
 def buildResponse(response, counter, location, verbose):
     count = str(counter) + '. '
-    name = response['name'] + ' (' + response['categories'][0][0]+ ')' 
+
+    name = response['name']
+    if 'categories' in response:
+        name +=  ' (' + response['categories'][0][0]+ ')' 
     endLocation = response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
     phone = formatPhone(str(response['phone'])) 
     rating = str(response['rating']) + " stars" 
