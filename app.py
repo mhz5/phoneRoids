@@ -106,7 +106,7 @@ class SetAddress(restful.Resource):
         current_user.set_address(label, location)
         return redirect('/apps')
 
-api.add_resouce(SetAddress,'/api/address')
+api.add_resource(SetAddress,'/api/address')
 
 
 class RegisterUser(restful.Resource):
