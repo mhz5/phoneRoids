@@ -5,13 +5,12 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
-	<link rel="stylesheet" type="text/css" href="static/css/fonts.css" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/fonts.css') }}" />
 
 	
-	<script type="text/javascript" src="static/js/script.js"></script>
-	<script type="text/javascript" src="static/js/skel.min.js"></script>
-	<script type="text/javascript" src="static/js/init.js"></script>
-	<script type="text/javascript" src="static/js/jquery.poptrox.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/skel.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/init.js') }}"></script>
 </head>
 <body>
 	
