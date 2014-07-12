@@ -22,7 +22,7 @@ def processRequest(request, phone_number):
 		if argJson:
 			argReload = json.loads(argJson)
 	else:
-		print "Brain state none"
+		print "Brain state: none"
 		state = "None"
 	
 	(app, argDict, state) = parser.parseRequest(request, old_state)
@@ -36,8 +36,8 @@ def processRequest(request, phone_number):
 	texting_user.save()
 	print 'hits after texting'
 	
-	print argDict
-	print app
+	print "Args" + argDict
+	print "App: " +app
 	if app == "venmo":	
 		response = venmo_api.make_payment(user = texting_user, phone = argDict.get("to")  , amount = argDict.get("pay"), note = argDict.get("for"))
 	elif app == "maps":
@@ -49,7 +49,7 @@ def processRequest(request, phone_number):
 			endLoc = storedEndLoc
 		if storedStartLoc:
 			startLoc = storedStartLoc
-		print "Querty: from: "+ startLoc + "to: "+ endLoc
+		print "Query: from: "+ startLoc + "to: "+ endLoc
 		response = maps_api.query(startLoc = startLoc, endLoc = endLoc)
 		
 	elif app == "yelp":
@@ -57,6 +57,7 @@ def processRequest(request, phone_number):
 			index = argDict.get("choice") 
 			response = yelp_api.verbose(location = argReload.get("location"), index = index , radius = argReload.get("distance", "50"), category = argReload.get("category", "restaurants"))
 			pieces = response.split("|")
+			print "Setting Address: " + pieces[1]
 			texting_user.set_address(index, pieces[1])
 		else:
 			response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
