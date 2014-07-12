@@ -13,12 +13,11 @@ YELP_STATE_TWO = "yelp_2"
 def processRequest(request):
 	print request
 	(app, argDict, state) = parser.parseRequest(request)
-	state = YELP_STATE_ONE
 	new_brain_state= BrainState(state=state)
 	new_brain_state.save()
 	current_user.brain_state=new_brain_state
 	current_user.save()
-	print yelp_api.main(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
+	print yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
 
 
 
