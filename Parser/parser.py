@@ -2,7 +2,7 @@ import re
 
 apps = ['yelp', 'maps', 'venmo']
 yelpArgsStageOne = ['distance:', 'location:', 'category:']
-mapsArgs = []
+mapsArgs = ['from:', 'to:']
 venmoArgs = ['pay:', 'request:', 'to:', 'from:', 'for:']
 
 def parseRequest(phrase, curState = 'None'):
