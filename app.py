@@ -72,6 +72,11 @@ def serve_home():
     	print current_user.user_accounts
         return render_template("index.html", user=current_user)
 
+# Testing apps.html
+@app.route("/apps")
+def serve_apps():
+    return render_template("apps.html")
+
 @app.route("/register")
 def serve_register(): 
 	return render_template("register.html")
