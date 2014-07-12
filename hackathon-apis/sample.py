@@ -73,8 +73,6 @@ def request(host, path, url_params=None):
     oauth_request.sign_request(oauth2.SignatureMethod_HMAC_SHA1(), consumer, token)
     signed_url = oauth_request.to_url()
 
-    print 'Querying {0} ...'.format(url)
-
     conn = urllib2.urlopen(signed_url, None)
     try:
         response = json.loads(conn.read())
@@ -127,21 +125,13 @@ def query_api(term, location, radius):
     businesses = response.get('businesses')
 
     if not businesses:
-        print 'No businesses for {0} in {1} found.'.format(term, location)
         return
 
     business_id = businesses[0]['id']
-
-    print '{0} businesses found, querying business info for the top result "{1}" ...'.format(
-        len(businesses),
-        business_id
-    )
-
     return getLocations(businesses);
     #response = get_business(business_id)
     #print 'Result for business "{0}" found:'.format(business_id)
     #print response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
-    #pprint.pprint(response, indent=2)
 
 
 def getLocations(businesses):
@@ -152,7 +142,7 @@ def getLocations(businesses):
         bizId = business['id']
         response = get_business(bizId)
         #pprint.pprint(response, indent=2)
-        output += str(counter) + '. ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code'] + token
+        output += str(counter) + '. ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code'] + ' | ' + response['name'] + token 
     return output 
 
 def main():
@@ -164,7 +154,6 @@ def main():
     input_values = parser.parse_args()
 
     try:
-        print input_values.term + "," + input_values.location
         query_api(input_values.term, input_values.location)
     except urllib2.HTTPError as error:
         sys.exit('Encountered HTTP error {0}. Abort program.'.format(error.code))
