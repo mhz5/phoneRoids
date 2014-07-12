@@ -21,7 +21,7 @@ import pprint
 import sys
 import urllib
 import urllib2
-
+import maps
 import oauth2
 
 
@@ -113,7 +113,7 @@ def get_business(business_id):
 
     return request(API_HOST, business_path)
 
-def query_api(term, location, radius):
+def query_api(term, location, radius, verbose, index):
     """Queries the API by the input values from the user.
 
     Args:
@@ -128,27 +128,50 @@ def query_api(term, location, radius):
         return
 
     business_id = businesses[0]['id']
-    return getLocations(businesses);
+    return getLocations(businesses, location, verbose, index);
     #response = get_business(business_id)
     #print 'Result for business "{0}" found:'.format(business_id)
     #print response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
 
 def formatPhone(phone):
-    areaCode = '(' + phone[:3] + ')'
+    areaCode = '(' + phone[:3] + ') '
     begin = phone[3:6]
     end = phone[-4:]
     return areaCode + begin + '-' + end
 
-def getLocations(businesses):
+def getDistance(start, end):
+    return maps.getDistance(start, end)
+
+def buildResponse(response, counter, location, verbose):
+    count = str(counter) + '. '
+    name = response['name'] + ' (' + response['categories'][0][0]+ ')' 
+    endLocation = response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
+    phone = formatPhone(str(response['phone'])) 
+    rating = str(response['rating']) + " stars" 
+    distance = getDistance(location, endLocation)
+    status = 'closed' if (str(response['is_closed']) == 'False') else 'open'
+    isClosed = 'currently ' + status 
+    neighborhood = response['location']['neighborhoods'][0]
+    if (not verbose):
+        return count + name + ' | ' + distance + ' | ' + phone + ' | ' + rating  + token
+    else:
+        return name + ' | ' +  endLocation + ' | ' + neighborhood + ' | ' + distance + ' | ' + phone + ' | ' + rating + ' | ' + isClosed + token
+
+def getLocations(businesses, location, verbose, index):
     output = 'Results: ' + token
     counter = 0
-    for business in businesses:
-        counter += 1
+    if verbose:
+        business = businesses[int(index) - 1]
         bizId = business['id']
         response = get_business(bizId)
-        #pprint.pprint(response, indent=2)
-        output += str(counter) + '. ' + response['name'] + ' (' + response['categories'][0][0]+ ')' + ' | ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' \
-                + response['location']['postal_code'] + ' | ' + formatPhone(str(response['phone'])) + ' | ' + str(response['reviews'][0]['rating']) + " stars" + token 
+        output += buildResponse(response, counter, location, verbose)
+    else:
+        for business in businesses:
+            counter += 1
+            bizId = business['id']
+            response = get_business(bizId)
+            #pprint.pprint(response, indent=2)
+            output += buildResponse(response, counter, location, verbose)
     return output 
 
 def main():
