@@ -29,8 +29,10 @@
 					<div id="addresses">
 						<div id="address-list">
 							{% for address in user.addresses %}
+							{% if address.user_set %}
 							<p> {{ address.label }} </p>
 							<p> {{ address.location }}</p>
+							{% endif %}
 							{% endfor %}
 						</div>
 						<div id="new-address">
