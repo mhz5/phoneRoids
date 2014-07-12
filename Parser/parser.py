@@ -2,10 +2,11 @@ import re
 
 apps = ['yelp', 'maps', 'venmo']
 yelpArgsStageOne = ['distance:', 'location:', 'category:']
-mapsArgs = []
+mapsArgs = ['from:', 'to:']
 venmoArgs = ['pay:', 'request:', 'to:', 'from:', 'for:']
 
 def parseRequest(phrase, curState = 'None'):
+    phrase = phrase.lower()
     parseFuncs = {'yelp': parseYelp, 'maps': parseMaps, 'venmo': parseVenmo}
     newState = 'None'
     requestedApp = ''
@@ -25,9 +26,11 @@ def parseRequest(phrase, curState = 'None'):
             response['choice'] = 'more'
             newState = 'yelp_1'
         else:
+            requestedApp = "error"
             response['error'] = 'invalid request format'
             newState = 'yelp_1'
     else:
+        requestedApp = "error"
         response['error'] = 'invalid request format'
     
     return (requestedApp, response, newState)

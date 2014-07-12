@@ -23,7 +23,8 @@ def getDistance(start, end):
 	response = getDirections(start, end)
 	return str(response[0]['legs'][0]['distance']['text'])
 
-def main(startLoc, endLoc):
+def query(startLoc, endLoc):
+	print "Maps got query"
 	response = getDirections(startLoc, endLoc)
 	instructionsList = response[0]['legs'][0]['steps']
 
