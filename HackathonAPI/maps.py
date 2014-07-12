@@ -45,5 +45,3 @@ def query(startLoc, endLoc):
 
 	return output
 	print '-----------------'
-
-#main(startLoc, endLoc)
