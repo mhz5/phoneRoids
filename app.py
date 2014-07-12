@@ -67,6 +67,7 @@ def index():
     if not User.objects(phone_number=str(phone_number)):
         print 'hits here'
         return 
+    print ('request%s', body_response)
     return_message = brain.processRequest(body_response, phone_number)
     resp = twilio.twiml.Response()
     resp.message(return_message)
