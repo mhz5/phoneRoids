@@ -97,14 +97,15 @@ def handle_logout():
     logout_user()
     return redirect('/')
 
-class SetAddress(resful.Resource):
-    label = request.form["label"]
-    # return if address label is only whitespace
-    if len("".join(label.split())) == 0:
+class SetAddress(restful.Resource):
+    def post(self):
+        label = request.form["label"]
+        # return if address label is only whitespace
+        if len("".join(label.split())) == 0:
+            return redirect('/apps')
+        location = request.form["location"]
+        current_user.set_address(label, location)
         return redirect('/apps')
-    location = request.form["location"]
-    current_user.set_address(label, location)
-    return redirect('/apps')
 
 api.add_resource(SetAddress,'/api/address')
 
