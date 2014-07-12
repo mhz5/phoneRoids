@@ -64,24 +64,27 @@ def index():
     """Respond to incoming calls with a simple text message."""
     body_response = request.values.get('Body')
     phone_number = request.values.get('From')[2:]
+    print body_response
+    print phone_number
     if not User.objects(phone_number=str(phone_number)):
         print 'hits here'
         return 
-    print ('request%s' % body_response)
     return_message = brain.processRequest(body_response, phone_number)
     resp = twilio.twiml.Response()
     resp.message(return_message)
     return str(resp)
-
+    
 @app.route("/")
 def serve_home():
+    if current_user.is_authenticated():
+        return redirect("/apps")
     print 'hitting this'
     return render_template("index.html", user=current_user)
 
 # Testing apps.html
 @app.route("/apps")
 def serve_apps():
-    return render_template("apps.html")
+    return render_template("apps.html", user=current_user)
 
 @app.route("/request")
 def sampleRequest():
@@ -89,16 +92,33 @@ def sampleRequest():
     #query = request.args.get('query')
     #brain.processRequest("maps from: 1572 Hollingsworth Drive, Mountain View CA to: San Francisco", "585-350-9206")
     #brain.processRequest("yelp category:food location: Fairport NY", "585-350-9206")
-    brain.processRequest("yelp location: mountain view, CA", "585-350-9206")
+    #brain.processRequest("yelp location: mountain view, CA", "585-350-9206")
     #brain.processRequest("3", "585-350-9206")
     #brain.processRequest("basdfasdf", "585-350-9206")
-    return render_template("apps.html")
+    brain.processRequest("maps from: mountain view, CA to: 3", "585-350-9206")
+    return render_template("apps.html", user=current_user)
 
 @app.route("/venmo-payment")
 def make_venmo_request(): 
     make_payment(current_user, 3146087439, 0.01, "hello")
     return redirect('/')
 
+class SetAddress(restful.Resource):
+    def post(self):
+        label = request.form["label"]
+        # return if address label is only whitespace
+        if len("".join(label.split())) == 0:
+            return redirect('/apps')
+        location = request.form["location"]
+        current_user.set_address(label, location)
+
+api.add_resource(SetAddress,'/api/address')
+
+@app.route("/logout")
+def handle_logout():
+    logout_user()
+    return redirect('/')
+    
 class RegisterUser(restful.Resource):
     def post(self): 
         if User.objects(phone_number=request.form["phone"]): #checks if username is taken
@@ -124,8 +144,6 @@ api.add_resource(ValidateLogin, "/api/login")
 #add venmo auth endpoints 
 api.add_resource(LoginRedirect, '/api/auth/venmo/login')
 api.add_resource(OAuthAuthorized, '/oauth-authorized')
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)

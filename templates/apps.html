@@ -16,71 +16,106 @@
 </head>
 
 <body>
+	<span id="welcome">Welcome {{ user.phone_number }}</span>
+	<span id="logout"><a  href="/logout">Logout</a></span>
 
+	<!-- Nav Bar -->
+	<div class="row-offcanvas row-offcanvas-left">
+		<div id="sidebar" class="sidebar-offcanvas">
+			<div class="col-md-12">
+				<ul class="nav nav-pills nav-stacked">
+					<!-- Addresses -->
+					<div id="addresses">
+						<div id="address-list">
+							{% for address in user.addresses %}
+							<p> {{ address.location }}</p>
+							{% endfor %}
+						</div>
+						<div id="new-address">
+							<form method="post" action="/api/address">
+								<fieldset>
+									<div class="form-group">
+										<input class="form-control" placeholder="Address" name="location" type="text">
+									</div>
+									<div class="form-group">
+										<input class="form-control" placeholder="Label" name="label" type="text" value="">
+									</div>
 
-	<div id="center-block">
-		<div class="card-row">
-			<div class="col-md-3">
-				<div class="card grayscale">
-					<img class="app-icon" width="128" src="static/icons/fb.png">
-					<button class="button">
-						<img class="settings" src="static/icons/settings.png">
-					</button>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card">
-
-					<img class="app-icon" width="128px" src="static/icons/twitter.png">
-				<button class="button">
-						<img class="settings" src="static/icons/settings.png">
-					</button>
-				</div>
-				
-			</div>
-			<div class="col-md-3">
-				<div class="card">
-					<img class="app-icon" width="128px" src="static/icons/yelp.jpg">
-				<button class="button">
-						<img class="settings" src="static/icons/settings.png">
-					</button>
-				</div>
-					
+									<input class="button" type="submit" value="Save">
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</li>
+			</ul>
 			</div>
 		</div>
-		<div class="card-row">
-			<div class="col-md-3">
-				<div class="card">
+		<div id="main" class="">
+			<div class="col-md-12">
+				<button class="button">
+					<img class="settings" src="static/icons/settings.png" data-toggle="offcanvas">
+				</button>
+				<!-- app icons -->
+				<div id="center-block">
+					<div class="card-row">
+						<div class="col-md-3">
+							<div class="card grayscale">
+								<img class="app-icon" width="128" src="static/icons/fb.png">
+								
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card">
 
-					<img class="app-icon" width="128px" src="static/icons/weather.png">
-					<button class="button">
-						<img class="settings" src="static/icons/settings.png">
-					</button>
-				</div>
-					
-			</div>
-			<div class="col-md-3">
-				<div class="card">
+								<img class="app-icon" width="128px" src="static/icons/twitter.png">
+								
+							</div>
 
-					<a href="/api/auth/venmo/login">
-						<img class="app-icon" width="128px" src="static/icons/venmo.png">
-					</a>
-					<button class="button">
-						<img class="settings" src="static/icons/settings.png">
-					</button>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card">
+						</div>
+						<div class="col-md-3">
+							<div class="card">
+								<img class="app-icon" width="128px" src="static/icons/yelp.jpg">
+								
+							</div>
 
-					<img class="app-icon" width="128px" src="static/icons/map.png">
-					<button class="button">
-						<img class="settings" src="static/icons/settings.png">
-					</button>
+						</div>
+					</div>
+					<div class="card-row">
+						<div class="col-md-3">
+							<div class="card">
+
+								<img class="app-icon" width="128px" src="static/icons/weather.png">
+							
+							</div>
+
+						</div>
+						<div class="col-md-3">
+							<div class="card">
+
+								<a href="/api/auth/venmo/login">
+									<img class="app-icon" width="128px" src="static/icons/venmo.png">
+								</a>
+							
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="card">
+
+								<img class="app-icon" width="128px" src="static/icons/map.png">
+								
+							</div>
+						</div>
+					</div>
 				</div>
+
+
+
 			</div>
 		</div>
 	</div>
+<!--/row-offcanvas -->
+	
+	
 
 
 

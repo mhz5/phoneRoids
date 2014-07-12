@@ -30,6 +30,7 @@ def processRequest(request, phone_number):
 	argJson = json.dumps(argDict,  separators=(',',':'))
 	
 	new_brain_state = BrainState(state = state, args = argJson)
+
 	new_brain_state.save()
 	texting_user.brain_state = new_brain_state
 	texting_user.save()
@@ -42,14 +43,17 @@ def processRequest(request, phone_number):
 	elif app == "maps":
 		startLoc = argDict.get("from")
 		endLoc = argDict.get("to")
-		if old_state == "yelp_1" and parse.isInteger(endLoc):
-			endLoc = yelp_api.getLocation(location = argReload.get("location"), radius = argReload.get("distance", "50"), category = argReload.get("category", "restaurants"))
+		storedLoc = texting_user.get_address_by_label(endLoc)
+		if storedLoc:
+			endLoc = storedLoc
 		response = map_api.query(startLoc = startLoc, endLoc = endLoc)
 		
 	elif app == "yelp":
 		if old_state == "yelp_1" and argDict.get("choice"):
-			print argReload
-			response = yelp_api.verbose(location = argReload.get("location"), index = argDict.get("choice") , radius = argReload.get("distance", "50"), category = argReload.get("category", "restaurants"))
+			index = argDict.get("choice") 
+			response = yelp_api.verbose(location = argReload.get("location"), index = index , radius = argReload.get("distance", "50"), category = argReload.get("category", "restaurants"))
+			pieces = response.split("|")
+			texting_user.set_address(index, pieces[1])
 		else:
 			response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
 
@@ -57,6 +61,7 @@ def processRequest(request, phone_number):
 		response = argDict.get("error")
 	print response
 	return response
+
 
 
 
