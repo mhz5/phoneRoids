@@ -41,11 +41,11 @@ class OAuthAuthorized(restful.Resource):
         user_account.save()
         for current_user_account in current_user.user_accounts:
             if current_user_account.api == "venmo":
-                return redirect("/")
+                return redirect("/apps")
         current_user.user_accounts.append(user_account)
         current_user.save()
         session["venmo_token"] = access_token
-        return redirect("/")
+        return redirect("/apps")
   
 class LoginRedirect(restful.Resource):
     def get(self):

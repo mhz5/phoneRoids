@@ -23,6 +23,10 @@ html body {
 	margin-bottom: 50px;
 }
 
+#new-address {
+	width: 200px;
+}
+
 /* Card styles */
 
 .card:hover {
