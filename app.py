@@ -11,6 +11,7 @@ from venmo_auth import LoginRedirect, OAuthAuthorized
 
 import twilio.twiml
 import json 		
+import os
 
  
 app = Flask(__name__)
@@ -21,6 +22,7 @@ api = restful.Api(app)
 
 #for heroku
 if 'PORT' in os.environ: 
+    print os.environ
     import re
     from mongoengine import connect
 
