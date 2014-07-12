@@ -67,7 +67,7 @@ def findOrderedKeyList(phrase):
     parts = phrase.split(':')
     return [term.split()[-1] for i, term in enumerate(parts) if i != (len(parts) - 1)]
 
-    
+
 def getFirstToken(phrase):
     return phrase.split(' ', 1)[0]
 
