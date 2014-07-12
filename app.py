@@ -70,8 +70,10 @@ def index():
     print ('request%s' % body_response)
     return_message = brain.processRequest(body_response, phone_number)
     resp = twilio.twiml.Response()
-    with resp.message(return_message) as m:
-        m.media('https://demo.twilio.com/owl.png')
+    message = client.messages.create(to="3148585600", from_="3146087439",
+                                     body="Hello there!",
+                                     media_url=['https://demo.twilio.com/owl.png'])
+    resp.message(return_message) 
     return str(resp)
 
 @app.route("/")
