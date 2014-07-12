@@ -6,6 +6,7 @@ mapsArgs = []
 venmoArgs = ['pay:', 'request:', 'to:', 'from:', 'for:']
 
 def parseRequest(phrase, curState = 'None'):
+    phrase = phrase.lower()
     parseFuncs = {'yelp': parseYelp, 'maps': parseMaps, 'venmo': parseVenmo}
     newState = 'None'
     requestedApp = ''
