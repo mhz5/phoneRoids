@@ -4,7 +4,6 @@ import pprint
 import re
 
 direct = Directions()
-api = Geocoding()
 
 TAG_RE = re.compile(r'<[^>]+>')
 startLoc = '4790 Canberra Court, San Jose, CA'

@@ -31,6 +31,7 @@ DEFAULT_LOCATION = 'San Francisco, CA'
 SEARCH_LIMIT = 5
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
+token = ' --- '
 
 # OAuth credential placeholders that must be filled in by users.
 CONSUMER_KEY = 'vCXEpMiao6c-HTNuWtG_mA'
@@ -136,7 +137,7 @@ def query_api(term, location, radius):
         business_id
     )
 
-    getLocations(businesses);
+    return getLocations(businesses);
     #response = get_business(business_id)
     #print 'Result for business "{0}" found:'.format(business_id)
     #print response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
@@ -144,13 +145,15 @@ def query_api(term, location, radius):
 
 
 def getLocations(businesses):
+    output = 'Results: ' + token
+    counter = 0
     for business in businesses:
+        counter += 1
         bizId = business['id']
         response = get_business(bizId)
-        print '-------------------------------------------'
-        pprint.pprint(response, indent=2)
-        #print response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
-
+        #pprint.pprint(response, indent=2)
+        output += str(counter) + '. ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code'] + token
+    return output 
 
 def main():
     parser = argparse.ArgumentParser()
