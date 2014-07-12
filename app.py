@@ -87,7 +87,7 @@ def serve_logout():
 class RegisterUser(restful.Resource):
     def post(self): 
         if User.objects(phone_number=request.form["phone"]): #checks if username is taken
-            return redirect("/register.html")
+            return redirect("/register")
         user= User(phone_number=request.form["phone"], password=request.form["password"])
         user.save()
         login_user(user)
