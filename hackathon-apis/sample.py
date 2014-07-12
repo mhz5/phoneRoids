@@ -31,7 +31,7 @@ DEFAULT_LOCATION = 'San Francisco, CA'
 SEARCH_LIMIT = 5
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
-token = ' --- '
+token = '\n'
 
 # OAuth credential placeholders that must be filled in by users.
 CONSUMER_KEY = 'vCXEpMiao6c-HTNuWtG_mA'
@@ -133,6 +133,11 @@ def query_api(term, location, radius):
     #print 'Result for business "{0}" found:'.format(business_id)
     #print response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
 
+def formatPhone(phone):
+    areaCode = '(' + phone[:3] + ')'
+    begin = phone[3:6]
+    end = phone[-4:]
+    return areaCode + begin + '-' + end
 
 def getLocations(businesses):
     output = 'Results: ' + token
@@ -141,8 +146,9 @@ def getLocations(businesses):
         counter += 1
         bizId = business['id']
         response = get_business(bizId)
-        #pprint.pprint(response, indent=2)
-        output += str(counter) + '. ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code'] + ' | ' + response['name'] + token 
+        pprint.pprint(response, indent=2)
+        output += str(counter) + '. ' + response['name'] + ' (' + response['categories'][0][0]+ ')' + ' | ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' \
+                + response['location']['postal_code'] + ' | ' + formatPhone(str(response['phone'])) + ' | ' + str(response['reviews'][0]['rating']) + " stars" + token 
     return output 
 
 def main():
