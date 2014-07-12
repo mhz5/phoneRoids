@@ -5,6 +5,7 @@ Jinja2==2.7.3
 MarkupSafe==0.23
 Werkzeug==0.9.6
 aniso8601==0.82
+gunicorn==19.0.0
 httplib2==0.9
 itsdangerous==0.24
 mongoengine==0.8.7
