@@ -146,7 +146,7 @@ def getLocations(businesses):
         counter += 1
         bizId = business['id']
         response = get_business(bizId)
-        pprint.pprint(response, indent=2)
+        #pprint.pprint(response, indent=2)
         output += str(counter) + '. ' + response['name'] + ' (' + response['categories'][0][0]+ ')' + ' | ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' \
                 + response['location']['postal_code'] + ' | ' + formatPhone(str(response['phone'])) + ' | ' + str(response['reviews'][0]['rating']) + " stars" + token 
     return output 

@@ -1,5 +1,8 @@
 from mongoengine import *
 
+class BrainState(Document):
+	state = StringField()
+
 class Address(Document):
 	label = StringField(required=True, unique=True)
 	location = StringField()
@@ -18,6 +21,7 @@ class User(Document):
 	addresses = ListField(ReferenceField(Address))
 	queries = ListField(ReferenceField(Query))
 	user_accounts = ListField(ReferenceField(UserAccount))
+	brain_state = ReferenceField(BrainState)
 
 	def is_authenticated(self):
 		return True
