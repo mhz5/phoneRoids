@@ -6,12 +6,17 @@ MarkupSafe==0.23
 Werkzeug==0.9.6
 aniso8601==0.82
 gunicorn==19.0.0
+googlemaps==1.0.2
 httplib2==0.9
 itsdangerous==0.24
 mongoengine==0.8.7
+oauth2==1.5.211
 pymongo==2.7.1
+python-gmaps==0.1.1
+python-yelp-v2==0.2
 pytz==2014.4
 requests==2.3.0
 six==1.7.3
 twilio==3.6.6
+urllib3==1.7.1
 wsgiref==0.1.2

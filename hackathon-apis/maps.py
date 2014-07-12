@@ -8,7 +8,7 @@ direct = Directions()
 TAG_RE = re.compile(r'<[^>]+>')
 startLoc = '4790 Canberra Court, San Jose, CA'
 endLoc = '820 E El Camino Real, Mountain View, CA'
-token = ' --- '
+token = '\n'
 
 def remove_tags(text):
     return TAG_RE.sub('', text)

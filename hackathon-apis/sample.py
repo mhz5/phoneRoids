@@ -31,7 +31,7 @@ DEFAULT_LOCATION = 'San Francisco, CA'
 SEARCH_LIMIT = 5
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
-token = ' --- '
+token = '\n'
 
 # OAuth credential placeholders that must be filled in by users.
 CONSUMER_KEY = 'vCXEpMiao6c-HTNuWtG_mA'
@@ -72,8 +72,6 @@ def request(host, path, url_params=None):
     token = oauth2.Token(TOKEN, TOKEN_SECRET)
     oauth_request.sign_request(oauth2.SignatureMethod_HMAC_SHA1(), consumer, token)
     signed_url = oauth_request.to_url()
-
-    print 'Querying {0} ...'.format(url)
 
     conn = urllib2.urlopen(signed_url, None)
     try:
@@ -127,22 +125,19 @@ def query_api(term, location, radius):
     businesses = response.get('businesses')
 
     if not businesses:
-        print 'No businesses for {0} in {1} found.'.format(term, location)
         return
 
     business_id = businesses[0]['id']
-
-    print '{0} businesses found, querying business info for the top result "{1}" ...'.format(
-        len(businesses),
-        business_id
-    )
-
     return getLocations(businesses);
     #response = get_business(business_id)
     #print 'Result for business "{0}" found:'.format(business_id)
     #print response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code']
-    #pprint.pprint(response, indent=2)
 
+def formatPhone(phone):
+    areaCode = '(' + phone[:3] + ')'
+    begin = phone[3:6]
+    end = phone[-4:]
+    return areaCode + begin + '-' + end
 
 def getLocations(businesses):
     output = 'Results: ' + token
@@ -151,8 +146,9 @@ def getLocations(businesses):
         counter += 1
         bizId = business['id']
         response = get_business(bizId)
-        #pprint.pprint(response, indent=2)
-        output += str(counter) + '. ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' + response['location']['postal_code'] + token
+        pprint.pprint(response, indent=2)
+        output += str(counter) + '. ' + response['name'] + ' (' + response['categories'][0][0]+ ')' + ' | ' + response['location']['address'][0] + ', ' + response['location']['city'] + ' ' \
+                + response['location']['postal_code'] + ' | ' + formatPhone(str(response['phone'])) + ' | ' + str(response['reviews'][0]['rating']) + " stars" + token 
     return output 
 
 def main():
@@ -164,7 +160,6 @@ def main():
     input_values = parser.parse_args()
 
     try:
-        print input_values.term + "," + input_values.location
         query_api(input_values.term, input_values.location)
     except urllib2.HTTPError as error:
         sys.exit('Encountered HTTP error {0}. Abort program.'.format(error.code))
