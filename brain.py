@@ -16,7 +16,7 @@ def processRequest(request, phone_number):
 	new_brain_state = BrainState(state=state)
 	new_brain_state.save()
 	print 'reaches 1'
-	texting_user = User.objects(phone=phone_number)
+	texting_user = User.objects(phone_number=phone_number)
 	texting_user.brain_state = new_brain_state
 	texting_user.save()
 	print 'reaches 2'
