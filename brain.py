@@ -24,12 +24,15 @@ def processRequest(request, phone_number):
 	print argDict
 	print app
 	if app == "venmo":
-		query = venmo_api.make_payment(user = texting_user, phone = argDict.get("to")  , amount = argDict.get("pay"), note = argDict.get("for"))
+		response = venmo_api.make_payment(user = texting_user, phone = argDict.get("to")  , amount = argDict.get("pay"), note = argDict.get("for"))
 	elif app == "maps":
-		query = maps_api.query(startLoc = argDict.get("from"), endLoc = argDict.get("to"))
+		response = maps_api.query(startLoc = argDict.get("from"), endLoc = argDict.get("to"))
 	elif app == "yelp":
-		query = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
-	return query
+		response = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
+	elif app == "error"
+		response = argDict.get("error")
+
+	return response
 
 
 

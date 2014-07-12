@@ -26,9 +26,11 @@ def parseRequest(phrase, curState = 'None'):
             response['choice'] = 'more'
             newState = 'yelp_1'
         else:
+            requestedApp = "error"
             response['error'] = 'invalid request format'
             newState = 'yelp_1'
     else:
+        requestedApp = "error"
         response['error'] = 'invalid request format'
     
     return (requestedApp, response, newState)
