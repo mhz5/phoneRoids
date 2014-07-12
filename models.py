@@ -4,9 +4,10 @@ class Address(Document):
 	label = StringField(required=True, unique=True)
 	location = StringField()
 
-class AccessToken(Document):
+class UserAccount(Document):
 	api = StringField(required=True)
 	access_token = StringField(required=True)
+	username = StringField()
 
 class Query(Document):
 	content = StringField()
@@ -16,7 +17,7 @@ class User(Document):
 	password = StringField(required=True, max_length=50)
 	addresses = ListField(ReferenceField(Address))
 	queries = ListField(ReferenceField(Query))
-	access_tokens = ListField(ReferenceField(AccessToken))
+	user_accounts = ListField(ReferenceField(UserAccount))
 
 	def is_authenticated(self):
 		return True
@@ -25,7 +26,7 @@ class User(Document):
 
 	def is_anonymous(self):
 		return False
-		
+
 	def get_id(self):
 		return unicode(self.id)
 

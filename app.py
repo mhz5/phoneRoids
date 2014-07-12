@@ -5,6 +5,8 @@ from flask.ext import restful
 from mongoengine import *
 from models import * 
 
+from venmo_auth import LoginRedirect, OAuthAuthorized
+
 import twilio.twiml
 import json 		
 
@@ -32,6 +34,7 @@ def serve_home():
     if not current_user.is_authenticated():
         return render_template("login.html")
     else:
+    	print current_user.user_accounts
         return render_template("index.html", user=current_user)
 
 @app.route("/register")
@@ -63,6 +66,14 @@ class ValidateLogin(restful.Resource):
         return redirect(url_for("serve_home", error=error))
 
 api.add_resource(ValidateLogin, "/api/login")
+
+
+
+#add venmo auth endpoints 
+api.add_resource(LoginRedirect, '/api/auth/venmo/login')
+api.add_resource(OAuthAuthorized, '/oauth-authorized')
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
