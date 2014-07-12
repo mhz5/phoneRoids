@@ -60,19 +60,14 @@ def load_user(userid):
     return User.objects(id=userid).first()
  
 @app.route("/api/text", methods=["GET", "POST"])
-def index():
+def hello_monkey():
     """Respond to incoming calls with a simple text message."""
-    body_response = request.values.get('Body')
-    phone_number = request.values.get('From')[2:]
-    if not User.objects(phone_number=str(phone_number)):
-        print 'hits here'
-        return 
-    print ('request%s' % body_response)
-    return_message = brain.processRequest(body_response, phone_number)
+ 
     resp = twilio.twiml.Response()
-    resp.message(return_message)
+    with resp.message("Hello, Mobile Monkey") as m:
+        m.media("https://demo.twilio.com/owl.png")
     return str(resp)
-
+    
 @app.route("/")
 def serve_home():
     if current_user.is_authenticated():
@@ -101,6 +96,17 @@ def make_venmo_request():
 def handle_logout():
     logout_user()
     return redirect('/')
+
+class SetAddress(resful.Resource):
+    label = request.form["label"]
+    # return if address label is only whitespace
+    if len("".join(label.split())) == 0:
+        return redirect('/apps')
+    location = request.form["location"]
+    current_user.set_address(label, location)
+    return redirect('/apps')
+
+api.add_resource(SetAddress,'/api/address')
 
 class RegisterUser(restful.Resource):
     def post(self): 

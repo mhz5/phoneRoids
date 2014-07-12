@@ -14,7 +14,6 @@ YELP_STATE_TWO = "yelp_2"
 
 def processRequest(request, phone_number):
 	(app, argDict, state) = parser.parseRequest(request)
-	print 'state %s' % state
 	new_brain_state = BrainState(state=state)
 	new_brain_state.save()
 	texting_user = User.objects(phone_number=str(phone_number)).first()
@@ -33,6 +32,7 @@ def processRequest(request, phone_number):
 		response = argDict.get("error")
 
 	return response
+
 
 
 
