@@ -39,10 +39,12 @@ video#vid {
 
 /* Login and Signup Boxes */
 
-.auth-box {
-	text-align: center;
-	display: fixed;
-	margin-top: 20%;
+div.auth-box {
+	margin-left: auto;
+	margin-right: auto;
+	position: fixed !important;
+	margin-top: 10%;
+	width: 200px;
 }
 
 #auth-buttons {
