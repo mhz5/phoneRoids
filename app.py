@@ -59,7 +59,7 @@ else:
 def load_user(userid):
     return User.objects(id=userid).first()
  
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/api/text", methods=["GET", "POST"])
 def hello_monkey():
     """Respond to incoming calls with a simple text message."""
  
@@ -67,7 +67,7 @@ def hello_monkey():
     with resp.message("Hello, Mobile Monkey") as m:
         m.media("https://demo.twilio.com/owl.png")
     return str(resp)
-
+    
 @app.route("/")
 def serve_home():
     if not current_user.is_authenticated():
