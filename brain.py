@@ -14,6 +14,7 @@ YELP_STATE_TWO = "yelp_2"
 
 
 def processRequest(request, phone_number):
+	old_state = "None"
 	texting_user = User.objects(phone_number=str(phone_number)).first()
 	if texting_user.brain_state is not None:
 		old_state = texting_user.brain_state.state
@@ -23,7 +24,7 @@ def processRequest(request, phone_number):
 			argReload = json.loads(argJson)
 	else:
 		print "Brain state: none"
-		state = "None"
+		old_state = "None"
 	
 	(app, argDict, state) = parser.parseRequest(request, old_state)
 	print 'state %s' % state
@@ -36,7 +37,7 @@ def processRequest(request, phone_number):
 	texting_user.save()
 	print 'hits after texting'
 	
-	print "Args" + argDict
+	print argDict
 	print "App: " +app
 	if app == "venmo":	
 		response = venmo_api.make_payment(user = texting_user, phone = argDict.get("to")  , amount = argDict.get("pay"), note = argDict.get("for"))
