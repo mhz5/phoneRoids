@@ -55,5 +55,6 @@ def findApp(phrase):
     app = phrase.split(' ', 1)[0]
     if app in apps:
         return app
+    return null
 
 #print parseRequest("venmo pay $15.00 to Michael Zhao for being AWESOME")

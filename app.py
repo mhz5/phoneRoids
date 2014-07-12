@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, render_template, redirect, g
+from flask import Flask, request, url_for, render_template, redirect
 from flask.ext.login import LoginManager, current_user, login_user, logout_user 
 from flask.ext import restful
  
@@ -10,7 +10,8 @@ from venmo_auth import LoginRedirect, OAuthAuthorized
 # from facebook_auth import FacebookAuthorized, FacebookLogin
 
 import twilio.twiml
-import json 		
+import json 
+import brain		
 
 connect("relay")
  
@@ -52,6 +53,12 @@ def serve_logout():
     logout_user()
     return render_template("login.html")
 
+@app.route("/request")
+def sampleRequest():
+    # here we want to get the value of user (i.e. ?query=some-value)
+    query = request.args.get('query')
+    brain.processRequest(query)
+
 class RegisterUser(restful.Resource):
     def post(self): 
         if User.objects(phone_number=request.form["phone"]): #checks if username is taken
@@ -66,7 +73,6 @@ api.add_resource(RegisterUser, "/api/register")
 class ValidateLogin(restful.Resource):
     def post(self):
         user= User.objects(phone_number=request.form["phone"], password=request.form["password"])
-        g.user = current_user
         if user:
             login_user(user.first(), remember=True)
             return redirect("/")
