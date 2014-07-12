@@ -17,8 +17,8 @@ def processRequest(request):
 	new_brain_state = BrainState(state=state)
 	new_brain_state.save()
 	print 'reaches after brain state init'
-	current_user.brain_state = new_brain_state
-	current_user.save()
+	# current_user.brain_state = new_brain_state
+	# current_user.save()
 	print 'reaches after current user init'
 	query = yelp_api.query(location = argDict.get("location"), radius = argDict.get("distance", "50"), category = argDict.get("category", "restaurants"))
 	print 'right before return'
