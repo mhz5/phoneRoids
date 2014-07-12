@@ -16,12 +16,12 @@ def parseRequest(phrase, curState = 'None'):
         response = parseFuncs[requestedApp](phrase)
         if firstToken == 'yelp':
             newState = 'yelp_1'
-    else if curState != 'None':
+    elif curState != 'None':
         #currentApp, currentStage = curState.split('_', 1)
         requestedApp = 'yelp'
         if isInteger(phrase):
             response['choice'] = phrase
-        else if phrase == 'More' or phrase == 'more':
+        elif phrase == 'More' or phrase == 'more':
             response['choice'] = 'more'
             newState = 'yelp_1'
         else:
