@@ -1,9 +1,10 @@
 import re
 
-apps = ['yelp', 'maps', 'venmo']
+apps = ['yelp', 'maps', 'venmo', 'weather']
 yelpArgsStageOne = ['distance:', 'location:', 'category:']
 mapsArgs = ['from:', 'to:']
 venmoArgs = ['pay:', 'request:', 'to:', 'from:', 'for:']
+weatherArgs = ['location:']
 
 def parseRequest(phrase, curState = 'None'):
     phrase = phrase.lower()
@@ -47,6 +48,8 @@ def parseMaps(phrase):
 def parseVenmo(phrase):
     return parseArgsStage0(phrase, venmoArgs)
 
+def parseWeather(phrase):
+    return parseArgsStage0(phrase, weatherArgs)
 
 def parseArgsStage0(phrase, keywords):
     locDict = {}

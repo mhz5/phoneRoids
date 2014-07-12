@@ -43,10 +43,14 @@ def processRequest(request, phone_number):
 	elif app == "maps":
 		startLoc = argDict.get("from")
 		endLoc = argDict.get("to")
-		storedLoc = texting_user.get_address_by_label(endLoc)
-		if storedLoc:
-			endLoc = storedLoc
-		response = map_api.query(startLoc = startLoc, endLoc = endLoc)
+		storedStartLoc = texting_user.get_address_by_label(startLoc)
+		storedEndLoc = texting_user.get_address_by_label(endLoc)
+		if storedEndLoc:
+			endLoc = storedEndLoc
+		if storedStartLoc:
+			startLoc = storedStartLoc
+		print "Querty: from: "+ startLoc + "to: "+ endLoc
+		response = maps_api.query(startLoc = startLoc, endLoc = endLoc)
 		
 	elif app == "yelp":
 		if old_state == "yelp_1" and argDict.get("choice"):
